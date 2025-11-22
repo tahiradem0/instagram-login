@@ -238,7 +238,7 @@ p{
 }
 .error_message_fill{
   font-size: 14px;
-  color: red;
+  color: green;
   margin-top: 5px;
   display: none;
 }
